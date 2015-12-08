@@ -1,0 +1,55 @@
+<ion-view animation="nav-title-slide-ios7">
+    <ion-nav-bar class="bar bar-header registerbar">
+        <ion-nav-buttons side="left">
+            <button class="button button-icon headerfontcolor" ng-click="back()"><i class=ion-ios-arrow-back></i> Login
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-content class="center form-background">
+        <form>
+            <h2><i class=ion-ios-people></i> Register</h2>
+            <div class="card" ng-show="newuser">
+                <div class="item newusercard item-divider">
+                    Successfully Registed! <br>Please Login!
+                </div>
+            </div>
+            <div class="card" ng-show="existuser">
+                <div class="item existusercard item-divider">
+                    User already exists! <br>Send an email to support@conjoinz.com
+                </div>
+            </div>
+            <div class="list">
+                <label class="item item-input">
+                    <input type="email" name="email" placeholder="Email" ng-model="signup.email" style="background-color: #FFFFFF;">
+                </label>
+                <label class="item item-input">
+                    <input type="password" name="password" placeholder="Password" ng-model="signup.password" style="background-color:#FFFFFF">
+                </label>
+                <label class="item item-input">
+                    <input type="password" name="confirmpassword" placeholder="Confirm Password" ng-model="signup.confirmpassword" style="background-color:#FFFFFF">
+                </label>
+                <label class="item item-input">
+                    <input type="text" name="firstname" placeholder="First Name" ng-model="signup.firstname" style="background-color:#FFFFFF">
+                </label>
+                <label class="item item-input">
+                    <input type="text" name="lastname" placeholder="Last Name" ng-model="signup.lastname" style="background-color:#FFFFFF">
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label" style="background-color:#FFFFFF">Gender</span>
+                    <select name="gender" ng-model="signup.gender" style="background-color:#FFFFFF">
+                        <option selected>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </label>
+                <ion-checkbox name="agree" ng-model="signup.agree" style="background-color:#FFFFFF">I agree to the <b style="color:#8ab933">Terms of Service</b></ion-checkbox>
+                <button value="mobileRegister" class="button loginbutton button-block" ng-click="register(signup)">
+                    <i class=ion-checkmark-round></i> Register
+                </button>
+            </div>
+        </form>
+    </ion-content>
+    </ion-content>
+
+</ion-view>

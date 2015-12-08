@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'BrushScriptStd';
+    src: url('fonts/BrushScriptStd.eot');
+    src: url('fonts/BrushScriptStd.eot') format('embedded-opentype'),
+         url('fonts/BrushScriptStd.woff2') format('woff2'),
+         url('fonts/BrushScriptStd.woff') format('woff'),
+         url('fonts/BrushScriptStd.ttf') format('truetype'),
+         url('fonts/BrushScriptStd.svg#BrushScriptStd') format('svg');
+}

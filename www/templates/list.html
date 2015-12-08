@@ -1,0 +1,74 @@
+<ion-view animation="nav-title-slide-ios7">
+	<ion-side-menus>
+
+		<!--center content-->
+		<ion-side-menu-content drag-content="true">
+
+			<ion-nav-bar class="bar bar-header registerbar">
+				<ion-nav-buttons side="left">
+					<button class="button button-icon headerfontcolor" ng-click="back()"><i class=ion-ios-arrow-back></i> Scan
+					</button>
+				</ion-nav-buttons>
+
+				<ion-nav-buttons side="right">
+					<button class="button button-icon headerfontcolor ion-navicon" menu-toggle="right">
+					</button>
+				</ion-nav-buttons>
+			</ion-nav-bar>
+
+			<!--        Header-->
+			<ion-content class="has-header form-background">
+				<ion-list class="fade-in-not-out">
+					<!--<div>
+						<ul ng-repeat="productdetails in scanneddata">
+							<li ng-repeat="(key, val) in productdetails">
+								{{key}}: {{val}}
+							</li>
+						</ul>
+					</div>-->
+<!--
+					<ion-item class="item item-icon-right liststyle" ng-repeat="productdetails in scanneddata">
+						{{ productdetails.productsArray[0].brand }}
+						<br>
+						<i style="font-size: 10px;">{{ productdetails.productsArray[0].product_description }}</i>
+						<i class="icon ion-android-delete delbutton" ng-click="delete(productdetails, productdetails.productsArray[0].upc)"></i>
+					</ion-item>
+-->
+
+					<ion-item class="item item-icon-right liststyle" ng-repeat="productdetails in scanneddata">
+						{{ productdetails.brand }}
+						<br>
+						<i style="font-size: 10px;">{{ productdetails.product_description }}</i>
+						<i class="icon ion-android-delete delbutton" ng-click="delete(productdetails, productdetails.productsArray[0].upc)"></i>
+					</ion-item>
+				</ion-list>
+				<button class="button button-block loginbutton" ng-click="savetomypantry()">
+					<i class=ion-bag></i> Save to My Pantry
+				</button>
+			</ion-content>
+		</ion-side-menu-content>
+
+
+		<!-- Right menu -->
+		<ion-side-menu side="right">
+			<!-- Header -->
+			<ion-header-bar class="bar bar-header registerbar">
+				<h1 class="title headerfontcolor"><i class=ion-gear-a></i> Settings</h1>
+			</ion-header-bar>
+
+			<!-- Content of Projects -->
+			<ion-content has-header="true" class="form-background">
+				<ion-list>
+					<ion-item menu-toggle ng-click="clearlist()">
+						<span class="ion-android-list">
+                        </span>Clear List
+					</ion-item>
+					<ion-item menu-toggle ng-click="logout()">
+						<span class="ion-power">
+                        </span>Logout
+					</ion-item>
+				</ion-list>
+			</ion-content>
+		</ion-side-menu>
+	</ion-side-menus>
+</ion-view>

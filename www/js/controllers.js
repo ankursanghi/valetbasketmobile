@@ -9,70 +9,53 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
     $scope.callurl = function (loginData) {
 
 
-            $state.go('scan');
+            //            $state.go('scan');
 
-            //            if ((loginData.email != undefined) && (loginData.password != undefined) &&
-            //                (loginData.email != "") && (loginData.password != "")) {
-            //
-            //                Servicecall.show();
-            //                /*$timeout(function () {
-            //                    Servicecall.hide();
-            //                    $state.go('scan');
-            //                }, 3000);*/
-            //                $http({
-            //                    method: 'POST',
-            //                    url: 'https://localhost:8009/signin',
-            //                    headers: {
-            //                        'Content-Type': 'application/x-www-form-urlencoded'
-            //                    },
-            //                    transformRequest: function (obj) {
-            //                        var str = [];
-            //                        for (var p in obj)
-            //                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-            //                        return str.join("&");
-            //                    },
-            //                    data: {
-            //                        email: loginData.email,
-            //                        password: loginData.password
-            //                    }
-            //                }).success(function (res) {
-            //                    $scope.retuneddata = res;
-            //                    window.localStorage.historyLogin = '';
-            //                    window.localStorage.historyLogin = angular.toJson(res);
-            //                }).then(function () {
-            //
-            //                    if ($scope.retuneddata.status) {
-            //                        Servicecall.hide();
-            //                        $state.go('scan');
-            //
-            //                    } else {
-            //                        Servicecall.hide();
-            //                        $scope.wronguser = true;
-            //                        /*var alertPopup = $ionicPopup.alert({
-            //                                title: 'Error',
-            //                                template: 'Incorrect Username or Password'
-            //                            });
-            //                            alertPopup.then(function (res) {
-            //                                $scope.loginData = '';
-            //            
-            //                            });
-            //            */
-            //                        //                    $cordovaToast.show('Incorrect Email or Password', 'long', 'bottom');
-            //                    }
-            //                })
-            //
-            //
-            //                //        Servicecall.userlogin(loginData, function (tmpl) { //note the tmpl argument
-            //                //            $scope.retuneddata = tmpl;
-            //                //            console.log($scope.retuneddata);
-            //                //        });
-            //            } else {
-            //                alert('Please enter your credentials');
-            //                $cordovaToast.show('Please enter your credentials', 'long', 'bottom');
-            //            }
+            if ((loginData.email != undefined) && (loginData.password != undefined) &&
+                (loginData.email != "") && (loginData.password != "")) {
 
+                Servicecall.show();
+                /*$timeout(function () {
+                    Servicecall.hide();
+                    $state.go('scan');
+                }, 3000);*/
+                $http({
+                    method: 'POST',
+                    url: 'https://localhost:8009/signin',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    transformRequest: function (obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: {
+                        email: loginData.email,
+                        password: loginData.password
+                    }
+                }).success(function (res) {
+                    $scope.retuneddata = res;
+                    window.localStorage.historyLogin = '';
+                    window.localStorage.historyLogin = angular.toJson(res);
+                    $scope.userdetails = res;
+                }).then(function () {
 
-
+                    if ($scope.retuneddata.status) {
+                        Servicecall.hide();
+                        $state.go('scan');
+                        Servicecall.hide();
+                    } else {
+                        Servicecall.hide();
+                        $scope.wronguser = true;
+                        $cordovaToast.show('Incorrect Email or Password', 'long', 'bottom');
+                    }
+                })
+            } else {
+                alert('Please enter your credentials');
+                $cordovaToast.show('Please enter your credentials', 'long', 'bottom');
+            }
             //////////////////////end of the function/////////////////////
         }
         /////////////////////////////forgotpassword///////////////////////////
@@ -90,7 +73,7 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
 })
 
 .controller('forgotpasswordController', function ($scope, $http, $state, Servicecall, $ionicPopup) {
-    
+
     $scope.reset = '';
     $scope.back = function () {
         $state.go('app');
@@ -113,7 +96,7 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
                 user: reset.email
             }
         }).success(function (res) {
-           console.log(res);
+            console.log(res);
         })
     }
 })
@@ -182,4 +165,11 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
     }
 
 
+})
+
+.controller('pantrylistController', function ($scope, $http, $state, Servicecall, $ionicPopup) {
+    $scope.pantryitems = Servicecall.pantrydetailsall();
+    $scope.myGoBack = function () {
+        $state.go(window.localStorage.lastview);
+    };
 });

@@ -24,31 +24,36 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
 
     .state('app', {
       url: '/app',
-//      abstract: true,
+      //      abstract: true,
       templateUrl: 'templates/login.html',
       controller: 'loginController',
-      cache:false
+      cache: false
     })
     .state('scan', {
       url: '/scan',
       templateUrl: 'templates/scan.html',
       controller: 'scanController',
-      cache:false
+      cache: false
     }).state('list', {
       url: '/list',
       templateUrl: 'templates/list.html',
       controller: 'listController',
-      cache:false
+      cache: false
     }).state('forgotpassword', {
       url: '/forgotpassword',
       templateUrl: 'templates/forgotpassword.html',
       controller: 'forgotpasswordController',
-      cache:false
+      cache: false
     }).state('signup', {
       url: '/signup',
       templateUrl: 'templates/signup.html',
       controller: 'signupController',
-      cache:false
+      cache: false
+    }).state('pantrylist', {
+      url: '/pantrylist',
+      templateUrl: 'templates/pantrylist.html',
+      controller: 'pantrylistController',
+      cache: false
     });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app');

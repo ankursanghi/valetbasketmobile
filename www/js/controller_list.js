@@ -2,8 +2,8 @@ angular.module('starter.controller_list', [])
 
 .controller('listController', function ($scope, $state, $ionicPopup, Servicecall, $http) {
 
- //    $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
- //    $scope.showname = $scope.userdetails.user.firstname;
+ $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
+ $scope.useremail = $scope.userdetails.user.email;
  $scope.scanneddata = Servicecall.productdetailsall();
  // alert($scope.scanneddata);
  $scope.upccodes = Servicecall.scannedstringall();
@@ -15,9 +15,7 @@ angular.module('starter.controller_list', [])
   $scope.userdetails = '';
   $scope.showname = '';
   $scope.loginData = '';
-  /*window.localStorage.scanneddata = '';
-  $scope.scanneddata = '';*/
-  //  $state.go('app');
+  $scope.useremail = '';
   $state.go('app', {});
  }
 
@@ -30,10 +28,11 @@ angular.module('starter.controller_list', [])
  }
 
  $scope.back = function () {
-   //  $state.go('scan');
-   $state.go('scan', {});
-  }
-  ///////////////////////////////actionsheet///////////////////////////////////////
+  //  $state.go('scan');
+  $state.go('scan', {});
+ }
+
+ ///////////////////////////////actionsheet///////////////////////////////////////
  $scope.delete = function (project, upc) {
   $scope.upccodes.splice($scope.upccodes.indexOf(upc), 1);
   Servicecall.save($scope.upccodes);
@@ -42,8 +41,10 @@ angular.module('starter.controller_list', [])
   Servicecall.productsave($scope.scanneddata);
 
  };
+
  /////////////////////////////////save to my pantry//////////////////////////////
  $scope.savetomypantry = function () {
+  Servicecall.show();
   angular.forEach($scope.scanneddata, function (index) {
    $http({
     method: 'POST',
@@ -58,7 +59,7 @@ angular.module('starter.controller_list', [])
      return str.join("&");
     },
     data: {
-     email: 'mohideen@kenturf.com',
+     email: $scope.useremail,
      upc: index.upc,
      product_name: index.product_name,
      product_description: index.product_description,
@@ -74,6 +75,50 @@ angular.module('starter.controller_list', [])
   $scope.scanneddata = [];
   window.localStorage.scanneddata = [];
   window.localStorage.productdetails = [];
+  Servicecall.hide();
  }
 
+ /*////////////////////////////////my pantry///////////////////////////////*/
+
+ $scope.mypantry = function () {
+  Servicecall.show();
+  window.localStorage.lastview = '';
+  window.localStorage.lastview = $state.current.name;
+  $http({
+   method: 'POST',
+   url: 'https://localhost:8009/viewPantry',
+   headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+   },
+   transformRequest: function (obj) {
+    var str = [];
+    for (var p in obj)
+     str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    return str.join("&");
+   },
+   data: {
+    email: $scope.userdetails.user.email
+   }
+  }).success(function (res) {
+   console.log(res);
+   $scope.pantrystatus = res.status;
+   $scope.pantrydata = res;
+
+  }).then(function () {
+   if ($scope.pantrystatus) {
+    Servicecall.hide();
+    Servicecall.pantrysave(null);
+    if ($scope.pantrydata.pantry.length == 0) {
+     Servicecall.pantrysave(null);
+     $state.go('pantrylist', {});
+    } else {
+     Servicecall.pantrysave($scope.pantrydata.pantry[0].productsArray);
+     $state.go('pantrylist', {});
+    }
+   } else {
+    Servicecall.hide();
+    console.log("error");
+   }
+  });
+ }
 })

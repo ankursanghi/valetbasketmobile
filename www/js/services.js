@@ -18,6 +18,14 @@ angular.module('starter.services', [])
       }
       return [];
     },
+    
+    pantrydetailsall: function () {
+      var pantrydetails = window.localStorage.pantrydetails;
+      if (pantrydetails) {
+        return angular.fromJson(pantrydetails);
+      }
+      return [];
+    },
 
     save: function (scandata) {
       window.localStorage.scanneddata = angular.toJson(scandata);
@@ -25,6 +33,10 @@ angular.module('starter.services', [])
 
     productsave: function (productdetails) {
       window.localStorage.productdetails = angular.toJson(productdetails);
+    },
+    
+    pantrysave: function (pantry) {
+      window.localStorage.pantrydetails = angular.toJson(pantry);
     },
 
     show: function () {

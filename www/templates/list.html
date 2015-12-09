@@ -19,22 +19,6 @@
 			<!--        Header-->
 			<ion-content class="has-header form-background">
 				<ion-list class="fade-in-not-out">
-					<!--<div>
-						<ul ng-repeat="productdetails in scanneddata">
-							<li ng-repeat="(key, val) in productdetails">
-								{{key}}: {{val}}
-							</li>
-						</ul>
-					</div>-->
-<!--
-					<ion-item class="item item-icon-right liststyle" ng-repeat="productdetails in scanneddata">
-						{{ productdetails.productsArray[0].brand }}
-						<br>
-						<i style="font-size: 10px;">{{ productdetails.productsArray[0].product_description }}</i>
-						<i class="icon ion-android-delete delbutton" ng-click="delete(productdetails, productdetails.productsArray[0].upc)"></i>
-					</ion-item>
--->
-
 					<ion-item class="item item-icon-right liststyle" ng-repeat="productdetails in scanneddata">
 						{{ productdetails.brand }}
 						<br>
@@ -59,9 +43,15 @@
 			<!-- Content of Projects -->
 			<ion-content has-header="true" class="form-background">
 				<ion-list>
+					<!--
 					<ion-item menu-toggle ng-click="clearlist()">
 						<span class="ion-android-list">
                         </span>Clear List
+					</ion-item>
+-->
+					<ion-item menu-toggle ng-click="mypantry()">
+						<span class="ion-ios-list-outline">
+                        </span>My Pantry
 					</ion-item>
 					<ion-item menu-toggle ng-click="logout()">
 						<span class="ion-power">

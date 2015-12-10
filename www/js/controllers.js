@@ -5,57 +5,57 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
     $scope.loginData = '';
     $scope.retuneddata = '';
     $scope.wronguser = false;
-
+    $scope.passwordincorrect = false;
     $scope.callurl = function (loginData) {
 
 
-            //            $state.go('scan');
-
-            if ((loginData.email != undefined) && (loginData.password != undefined) &&
-                (loginData.email != "") && (loginData.password != "")) {
-
-                Servicecall.show();
-                /*$timeout(function () {
-                    Servicecall.hide();
-                    $state.go('scan');
-                }, 3000);*/
-                $http({
-                    method: 'POST',
-                    url: 'https://localhost:8009/signin',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    transformRequest: function (obj) {
-                        var str = [];
-                        for (var p in obj)
-                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        return str.join("&");
-                    },
-                    data: {
-                        email: loginData.email,
-                        password: loginData.password
-                    }
-                }).success(function (res) {
-                    $scope.retuneddata = res;
-                    window.localStorage.historyLogin = '';
-                    window.localStorage.historyLogin = angular.toJson(res);
-                    $scope.userdetails = res;
-                }).then(function () {
-
-                    if ($scope.retuneddata.status) {
-                        Servicecall.hide();
                         $state.go('scan');
-                        Servicecall.hide();
-                    } else {
-                        Servicecall.hide();
-                        $scope.wronguser = true;
-                        $cordovaToast.show('Incorrect Email or Password', 'long', 'bottom');
-                    }
-                })
-            } else {
-                alert('Please enter your credentials');
-                $cordovaToast.show('Please enter your credentials', 'long', 'bottom');
-            }
+
+//            if ((loginData.email != undefined) && (loginData.password != undefined) &&
+//                (loginData.email != "") && (loginData.password != "")) {
+//
+//                Servicecall.show();
+//                /*$timeout(function () {
+//                    Servicecall.hide();
+//                    $state.go('scan');
+//                }, 3000);*/
+//                $http({
+//                    method: 'POST',
+//                    url: 'https://localhost:8009/signin',
+//                    headers: {
+//                        'Content-Type': 'application/x-www-form-urlencoded'
+//                    },
+//                    transformRequest: function (obj) {
+//                        var str = [];
+//                        for (var p in obj)
+//                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+//                        return str.join("&");
+//                    },
+//                    data: {
+//                        email: loginData.email,
+//                        password: loginData.password
+//                    }
+//                }).success(function (res) {
+//                    $scope.retuneddata = res;
+//                    window.localStorage.historyLogin = '';
+//                    window.localStorage.historyLogin = angular.toJson(res);
+//                    $scope.userdetails = res;
+//                }).then(function () {
+//
+//                    if ($scope.retuneddata.status) {
+//                        Servicecall.hide();
+//                        $state.go('scan');
+//                        Servicecall.hide();
+//                    } else {
+//                        Servicecall.hide();
+//                        $scope.wronguser = true;
+//                        $cordovaToast.show('Incorrect Email or Password', 'long', 'bottom');
+//                    }
+//                })
+//            } else {
+//                alert('Please enter your credentials');
+//                $cordovaToast.show('Please enter your credentials', 'long', 'bottom');
+//            }
             //////////////////////end of the function/////////////////////
         }
         /////////////////////////////forgotpassword///////////////////////////
@@ -121,43 +121,53 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
             (signup.lastname != "") && (signup.gender != "") &&
             (signup.agree != "")) {
 
-            Servicecall.show();
-            $http({
-                method: 'POST',
-                url: 'https://localhost:8009/mobileRegister',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                transformRequest: function (obj) {
-                    var str = [];
-                    for (var p in obj)
-                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                    return str.join("&");
-                },
-                data: {
-                    email: signup.email,
-                    password: signup.password,
-                    confirmpassword: signup.confirmpassword,
-                    firstname: signup.firstname,
-                    lastname: signup.lastname,
-                    gender: signup.gender,
-                    agree: signup.agree
-                }
-            }).success(function (res) {
-                console.log(res);
-                $scope.signupretuneddata = res;
-            }).then(function () {
+            if (signup.password == signup.confirmpassword) {
+                Servicecall.show();
+                $http({
+                    method: 'POST',
+                    url: 'https://localhost:8009/mobileRegister',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    transformRequest: function (obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: {
+                        email: signup.email,
+                        password: signup.password,
+                        confirmpassword: signup.confirmpassword,
+                        firstname: signup.firstname,
+                        lastname: signup.lastname,
+                        gender: signup.gender,
+                        agree: signup.agree
+                    }
+                }).success(function (res) {
+                    console.log(res);
+                    $scope.signupretuneddata = res;
+                }).then(function () {
 
-                if ($scope.signupretuneddata.status) {
-                    Servicecall.hide();
-                    $scope.existuser = false;
-                    $scope.newuser = true;
-                } else {
-                    Servicecall.hide();
-                    $scope.existuser = true;
-                    $scope.newuser = false;
-                }
-            })
+                    if ($scope.signupretuneddata.status) {
+                        Servicecall.hide();
+                        $scope.existuser = false;
+                        $scope.passwordincorrect = false;
+                        $scope.newuser = true;
+                    } else {
+                        Servicecall.hide();
+                        $scope.existuser = true;
+                        $scope.passwordincorrect = false;
+                        $scope.newuser = false;
+                    }
+                })
+            }else{
+                $scope.passwordincorrect = true;
+                $scope.existuser = false;
+                $scope.newuser = false;
+            }
+
+
         } else {
             // alert('Please enter your details');
             $cordovaToast.show('Please enter your details', 'long', 'bottom');

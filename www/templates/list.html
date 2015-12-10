@@ -26,6 +26,15 @@
 						<i class="icon ion-android-delete delbutton" ng-click="delete(productdetails, productdetails.productsArray[0].upc)"></i>
 					</ion-item>
 				</ion-list>
+				<ion-list class="fade-in-not-out">
+					<ion-item class="item item-icon-right negativeliststyle" ng-repeat="negativelist in notindatabase">
+						{{ negativelist }}
+						<br>
+						<i style="font-size: 10px;">We currently do not have any information for this item.</i>
+						<i class="icon ion-android-delete negativedelbutton"
+						   ng-click="negativedelete(negativelist)"></i>
+					</ion-item>
+				</ion-list>
 				<button class="button button-block loginbutton" ng-click="savetomypantry()">
 					<i class=ion-bag></i> Save to My Pantry
 				</button>

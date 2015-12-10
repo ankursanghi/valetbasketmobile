@@ -2,9 +2,10 @@ angular.module('starter.controller_list', [])
 
 .controller('listController', function ($scope, $state, $ionicPopup, Servicecall, $http) {
 
- $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
- $scope.useremail = $scope.userdetails.user.email;
+//  $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
+//  $scope.useremail = $scope.userdetails.user.email;
  $scope.scanneddata = Servicecall.productdetailsall();
+ $scope.notindatabase = Servicecall.notindatabasedetailsall();
  // alert($scope.scanneddata);
  $scope.upccodes = Servicecall.scannedstringall();
  $scope.showname = "Arul";
@@ -40,6 +41,11 @@ angular.module('starter.controller_list', [])
   // Save to local storage
   Servicecall.productsave($scope.scanneddata);
 
+ };
+
+ $scope.negativedelete = function (negativedata) {
+  $scope.notindatabase.splice($scope.notindatabase.indexOf(negativedata), 1);
+  Servicecall.notindatabasesave($scope.notindatabase);
  };
 
  /////////////////////////////////save to my pantry//////////////////////////////

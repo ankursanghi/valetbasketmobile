@@ -228,10 +228,19 @@
     border-color: #8ab933;
 }
 
+.negativeliststyle {
+    border-left-width: 15px;
+    margin: 5px;
+    border-color: #a94442;
+}
+
 .delbutton {
     color: #8ab933;
 }
 
+.negativedelbutton {
+    color: #a94442;
+}
 
 /*//////////////////////////button/////////////////////////////*/
 

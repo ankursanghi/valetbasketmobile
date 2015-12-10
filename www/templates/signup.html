@@ -19,6 +19,11 @@
                     User already exists! <br>Send an email to support@conjoinz.com
                 </div>
             </div>
+            <div class="card" ng-show="passwordincorrect">
+                <div class="item existusercard item-divider">
+                    Please enter the same value in password.
+                </div>
+            </div>
             <div class="list">
                 <label class="item item-input">
                     <input type="email" name="email" placeholder="Email" ng-model="signup.email" style="background-color: #FFFFFF;">

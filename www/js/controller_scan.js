@@ -2,14 +2,15 @@ angular.module('starter.controller_scan', [])
 
 .controller('scanController', function ($scope, $http, $state, $ionicPopup, Servicecall, $cordovaToast, $timeout) {
 
-    $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
-    $scope.showname = $scope.userdetails.user.firstname;
+//        $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
+//        $scope.showname = $scope.userdetails.user.firstname;
     $scope.testarray = [];
     $scope.tempscan = [];
     $scope.templist = [];
+    $scope.notindatabase =[];
     $scope.allScannedlist = Servicecall.scannedstringall();
     $scope.product = Servicecall.productdetailsall();
-    //    $scope.showname = "Arul";
+        $scope.showname = "Arul";
     $scope.togglestatus = true;
     ///////////////////////////////////////Logout/////////////////////////////////////
     $scope.logout = function () {
@@ -46,7 +47,10 @@ angular.module('starter.controller_scan', [])
                     Servicecall.save($scope.allScannedlist);
                 }
             } else {
-                alert('empty');
+                if ($scope.notindatabase.indexOf(resultArray[0]) == -1) {
+                    $scope.notindatabase.push(resultArray[0]);
+                    Servicecall.notindatabasesave($scope.notindatabase);
+                }
             }
 
         });
@@ -74,43 +78,46 @@ angular.module('starter.controller_scan', [])
         /////////////////////////////////go to list///////////////////////////////////
 
     $scope.listpage = function () {
-            $scope.testchech1 = [];
-            $scope.product = [];
-            $scope.product.push({
-                numFound: 1,
-                resultSize: 1,
-                session_id: "f434d80e-801f-4cec-98b4-57af8b3fd00b",
-                productsArray: [
-                    {
-                        upc: "014800318227",
-                        isInMyList: "false",
-                        product_name: "MOTT'S JUICE BEVERAGE",
-                        product_description: "JUICE BEVERAGE",
-                        brand: "MOTT'S",
-                        manufacturer: "MOTT'S",
-                        product_size: "64 fl oz"
-            }
-            ]
-            }, {
-                numFound: 1,
-                resultSize: 1,
-                session_id: "f434d80e-801f-4cec-98b4-57af8b3fd00b",
-                productsArray: [
-                    {
-                        upc: "085239284063",
-                        isInMyList: "false",
-                        product_name: "MARKET PANTRY MARKET PANTRY, REDUCED FAT MILK",
-                        product_description: "MARKET PANTRY, REDUCED FAT MILK",
-                        brand: "MARKET PANTRY",
-                        manufacturer: "MARKET PANTRY",
-                        product_size: "3.78 L"
-}
-]
-            });
-            $scope.testchech1.push($scope.product[0].productsArray[0]);
-            $scope.testchech1.push($scope.product[1].productsArray[0]);
-            $scope.product = [];
-            Servicecall.productsave($scope.testchech1);
+//            $scope.testchech1 = [];
+//            $scope.product = [];
+//            $scope.product.push({
+//                numFound: 1,
+//                resultSize: 1,
+//                session_id: "f434d80e-801f-4cec-98b4-57af8b3fd00b",
+//                productsArray: [
+//                    {
+//                        upc: "014800318227",
+//                        isInMyList: "false",
+//                        product_name: "MOTT'S JUICE BEVERAGE",
+//                        product_description: "JUICE BEVERAGE",
+//                        brand: "MOTT'S",
+//                        manufacturer: "MOTT'S",
+//                        product_size: "64 fl oz"
+//            }
+//            ]
+//            }, {
+//                numFound: 1,
+//                resultSize: 1,
+//                session_id: "f434d80e-801f-4cec-98b4-57af8b3fd00b",
+//                productsArray: [
+//                    {
+//                        upc: "085239284063",
+//                        isInMyList: "false",
+//                        product_name: "MARKET PANTRY MARKET PANTRY, REDUCED FAT MILK",
+//                        product_description: "MARKET PANTRY, REDUCED FAT MILK",
+//                        brand: "MARKET PANTRY",
+//                        manufacturer: "MARKET PANTRY",
+//                        product_size: "3.78 L"
+//}
+//]
+//            });
+//            $scope.testchech1.push($scope.product[0].productsArray[0]);
+//            $scope.testchech1.push($scope.product[1].productsArray[0]);
+//            $scope.product = [];
+//            Servicecall.productsave($scope.testchech1);
+//            $scope.notindatabase.push('036632027603');
+//            $scope.notindatabase.push('030800000597');
+//            Servicecall.notindatabasesave($scope.notindatabase);
             $state.go('list', {});
         }
         ////////////////////////////////////////storing datain array////////////////////

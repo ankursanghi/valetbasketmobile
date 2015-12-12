@@ -5,12 +5,8 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
     $scope.loginData = '';
     $scope.retuneddata = '';
     $scope.wronguser = false;
-    $scope.passwordincorrect = false;
     $scope.callurl = function (loginData) {
-
-
                         $state.go('scan');
-
 //            if ((loginData.email != undefined) && (loginData.password != undefined) &&
 //                (loginData.email != "") && (loginData.password != "")) {
 //
@@ -104,6 +100,7 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
 .controller('signupController', function ($scope, $http, $state, Servicecall, $ionicPopup) {
     $scope.existuser = false;
     $scope.newuser = false;
+    $scope.passwordincorrect = false;
     $scope.signup = '';
     $scope.signupretuneddata = '';
     $scope.back = function () {

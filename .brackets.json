@@ -1,9 +1,6 @@
 {
     "jscodehints.detectedExclusions": [
-        "C:/Users/DELL/ConjoinzApp/www/js/controller_scan.js",
-        "C:/Users/DELL/ConjoinzApp/gulpfile.js",
-        "C:/Users/DELL/ConjoinzAppScandit/www/js/app.js",
-        "C:/Users/DELL/ConjoinzAppScandit/www/js/services.js",
-        "C:/Users/DELL/ConjoinzAppScandit/www/js/controller_scan.js"
+        "C:/Users/DELL/Conjoinz/www/js/controller_list.js",
+        "C:/Users/DELL/Conjoinz/www/js/controllers.js"
     ]
 }

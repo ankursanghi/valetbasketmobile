@@ -79,8 +79,10 @@ angular.module('starter.controller_list', [])
   });
   $scope.upccodes = [];
   $scope.scanneddata = [];
+  $scope.notindatabase = [];
   window.localStorage.scanneddata = [];
   window.localStorage.productdetails = [];
+  window.localStorage.notindatabasedetails = [];
   Servicecall.hide();
  }
 

@@ -2,13 +2,12 @@ angular.module('starter.controller_scan', [])
 
 .controller('scanController', function ($scope, $http, $cordovaBarcodeScanner, $cordovaToast, $state, Servicecall, $timeout) {
 
-//            $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
-//            $scope.showname = $scope.userdetails.user.firstname;
+    $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
+    $scope.showname = $scope.userdetails.user.firstname;
     $scope.duplicatecheck = [];
     $scope.notindatabase = Servicecall.notindatabasedetailsall();
     $scope.allScannedlist = Servicecall.scannedstringall();
     $scope.product = Servicecall.productdetailsall();
-    $scope.showname = "Arul";
     ///////////////////////////////////////Logout/////////////////////////////////////
     $scope.logout = function () {
         window.localStorage.historyLogin = '';
@@ -40,8 +39,8 @@ angular.module('starter.controller_scan', [])
                                     });
                                     Servicecall.save($scope.allScannedlist);
                                     $cordovaToast.show($scope.temtcheck1[0].productsArray[0].product_name, 'short', 'bottom');
-                                }else{
-                                   $cordovaToast.show('Already in list', 'short', 'bottom'); 
+                                } else {
+                                    $cordovaToast.show('Already in list', 'short', 'bottom');
                                 }
                             } else {
                                 $cordovaToast.show('Not in database', 'short', 'bottom');
@@ -58,53 +57,38 @@ angular.module('starter.controller_scan', [])
             function (error) {
                 $cordovaToast.show(error, 'short', 'bottom');
             });
-        
+
     }
 
     /////////////////////////////////go to list///////////////////////////////////
 
     $scope.listpage = function () {
-//                        $scope.testchech1 = [];
-//                        $scope.product = [];
-//                        $scope.notindatabase = [];
-//                        $scope.product.push({
-//                            numFound: 1,
-//                            resultSize: 1,
-//                            session_id: "f434d80e-801f-4cec-98b4-57af8b3fd00b",
-//                            productsArray: [
-//                                {
-//                                    upc: "014800318227",
-//                                    isInMyList: "false",
-//                                    product_name: "MOTT'S JUICE BEVERAGE",
-//                                    product_description: "JUICE BEVERAGE",
-//                                    brand: "MOTT'S",
-//                                    manufacturer: "MOTT'S",
-//                                    product_size: "64 fl oz"
-//                        }
-//                        ]
-//                        }, {
-//                            numFound: 1,
-//                            resultSize: 1,
-//                            session_id: "f434d80e-801f-4cec-98b4-57af8b3fd00b",
-//                            productsArray: [
-//                                {
-//                                    upc: "085239284063",
-//                                    isInMyList: "false",
-//                                    product_name: "MARKET PANTRY MARKET PANTRY, REDUCED FAT MILK",
-//                                    product_description: "MARKET PANTRY, REDUCED FAT MILK",
-//                                    brand: "MARKET PANTRY",
-//                                    manufacturer: "MARKET PANTRY",
-//                                    product_size: "3.78 L"
-//            }
-//            ]
-//                        });
-//                        $scope.testchech1.push($scope.product[0].productsArray[0]);
-//                        $scope.testchech1.push($scope.product[1].productsArray[0]);
-//                        $scope.product = [];
-//                        Servicecall.productsave($scope.testchech1);
-//                                    $scope.notindatabase.push('036632027603');
-//                                    $scope.notindatabase.push('030800000597');
-//                                    Servicecall.notindatabasesave($scope.notindatabase);
+//            $scope.testchech1 = [];
+//            $scope.product = [];
+//            $scope.notindatabase = [];
+//            $scope.product.push({
+//                numFound: 1,
+//                resultSize: 1,
+//                session_id: "f434d80e-801f-4cec-98b4-57af8b3fd00b",
+//                productsArray: [
+//                    {
+//                        upc: "014800318227",
+//                        isInMyList: "false",
+//                        product_name: "MOTT'S JUICE BEVERAGE",
+//                        product_description: "JUICE BEVERAGE",
+//                        brand: "MOTT'S",
+//                        manufacturer: "MOTT'S",
+//                        product_size: "64 fl oz"
+//                                    }
+//                                    ]
+//            });
+//            $scope.testchech1.push($scope.product[0].productsArray[0]);
+//            //$scope.testchech1.push($scope.product[1].productsArray[0]);
+//            $scope.product = [];
+//            Servicecall.productsave($scope.testchech1);
+            //                                    $scope.notindatabase.push('036632027603');
+            //                                    $scope.notindatabase.push('030800000597');
+            //                                    Servicecall.notindatabasesave($scope.notindatabase);
             $state.go('list', {});
         }
         ////////////////////////////////////////storing datain array////////////////////
@@ -112,7 +96,7 @@ angular.module('starter.controller_scan', [])
         console.log(d.data);
         $scope.duplicatecheck.push(d.data);
     });
-       /*////////////////////////////////my pantry///////////////////////////////*/
+    /*////////////////////////////////my pantry///////////////////////////////*/
 
     $scope.mypantry = function () {
             Servicecall.show();
@@ -120,7 +104,7 @@ angular.module('starter.controller_scan', [])
             window.localStorage.lastview = $state.current.name;
             $http({
                 method: 'POST',
-                url: 'https://localhost:8009/viewPantry',
+                url: 'https://ec2-52-33-48-38.us-west-2.compute.amazonaws.com:8009/viewPantry',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },

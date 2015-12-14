@@ -6,52 +6,47 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
     $scope.retuneddata = '';
     $scope.wronguser = false;
     $scope.callurl = function (loginData) {
+//                                    $state.go('scan');
+            if ((loginData.email != undefined) && (loginData.password != undefined) &&
+                (loginData.email != "") && (loginData.password != "")) {
+
+                Servicecall.show();
+                $http({
+                    method: 'POST',
+                    url: 'https://ec2-52-33-48-38.us-west-2.compute.amazonaws.com:8009/signin',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    transformRequest: function (obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: {
+                        email: loginData.email,
+                        password: loginData.password
+                    }
+                }).success(function (res) {
+                    $scope.retuneddata = res;
+                    window.localStorage.historyLogin = '';
+                    window.localStorage.historyLogin = angular.toJson(res);
+                    $scope.userdetails = res;
+                }).then(function () {
+
+                    if ($scope.retuneddata.status) {
+                        Servicecall.hide();
                         $state.go('scan');
-//            if ((loginData.email != undefined) && (loginData.password != undefined) &&
-//                (loginData.email != "") && (loginData.password != "")) {
-//
-//                Servicecall.show();
-//                /*$timeout(function () {
-//                    Servicecall.hide();
-//                    $state.go('scan');
-//                }, 3000);*/
-//                $http({
-//                    method: 'POST',
-//                    url: 'https://localhost:8009/signin',
-//                    headers: {
-//                        'Content-Type': 'application/x-www-form-urlencoded'
-//                    },
-//                    transformRequest: function (obj) {
-//                        var str = [];
-//                        for (var p in obj)
-//                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-//                        return str.join("&");
-//                    },
-//                    data: {
-//                        email: loginData.email,
-//                        password: loginData.password
-//                    }
-//                }).success(function (res) {
-//                    $scope.retuneddata = res;
-//                    window.localStorage.historyLogin = '';
-//                    window.localStorage.historyLogin = angular.toJson(res);
-//                    $scope.userdetails = res;
-//                }).then(function () {
-//
-//                    if ($scope.retuneddata.status) {
-//                        Servicecall.hide();
-//                        $state.go('scan');
-//                        Servicecall.hide();
-//                    } else {
-//                        Servicecall.hide();
-//                        $scope.wronguser = true;
-//                        $cordovaToast.show('Incorrect Email or Password', 'long', 'bottom');
-//                    }
-//                })
-//            } else {
-//                alert('Please enter your credentials');
-//                $cordovaToast.show('Please enter your credentials', 'long', 'bottom');
-//            }
+                        Servicecall.hide();
+                    } else {
+                        Servicecall.hide();
+                        $scope.wronguser = true;
+                        $cordovaToast.show('Incorrect Email or Password', 'long', 'bottom');
+                    }
+                })
+            } else {
+                $cordovaToast.show('Please enter your credentials', 'long', 'bottom');
+            }
             //////////////////////end of the function/////////////////////
         }
         /////////////////////////////forgotpassword///////////////////////////
@@ -68,7 +63,7 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
 
 })
 
-.controller('forgotpasswordController', function ($scope, $http, $state, Servicecall, $ionicPopup) {
+.controller('forgotpasswordController', function ($scope, $http, $state, Servicecall, $ionicPopup, $cordovaToast) {
 
     $scope.reset = '';
     $scope.back = function () {
@@ -78,7 +73,7 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
 
         $http({
             method: 'POST',
-            url: 'https://localhost:8009/mobilepasswordreset',
+            url: 'https://ec2-52-33-48-38.us-west-2.compute.amazonaws.com:8009/mobilepasswordreset',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
@@ -92,12 +87,12 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
                 user: reset.email
             }
         }).success(function (res) {
-            console.log(res);
+             $cordovaToast.show('Check your mail', 'long', 'bottom');
         })
     }
 })
 
-.controller('signupController', function ($scope, $http, $state, Servicecall, $ionicPopup) {
+.controller('signupController', function ($scope, $http, $state, Servicecall, $ionicPopup, $cordovaToast) {
     $scope.existuser = false;
     $scope.newuser = false;
     $scope.passwordincorrect = false;
@@ -122,7 +117,7 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
                 Servicecall.show();
                 $http({
                     method: 'POST',
-                    url: 'https://localhost:8009/mobileRegister',
+                    url: 'https://ec2-52-33-48-38.us-west-2.compute.amazonaws.com:8009/mobileRegister',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
@@ -158,7 +153,8 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
                         $scope.newuser = false;
                     }
                 })
-            }else{
+            } else {
+                Servicecall.hide();
                 $scope.passwordincorrect = true;
                 $scope.existuser = false;
                 $scope.newuser = false;
@@ -166,7 +162,6 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
 
 
         } else {
-            // alert('Please enter your details');
             $cordovaToast.show('Please enter your details', 'long', 'bottom');
         }
     }

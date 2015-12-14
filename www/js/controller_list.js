@@ -2,13 +2,11 @@ angular.module('starter.controller_list', [])
 
 .controller('listController', function ($scope, $state, $ionicPopup, Servicecall, $http) {
 
-//  $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
-//  $scope.useremail = $scope.userdetails.user.email;
+  $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
+  $scope.useremail = $scope.userdetails.user.email;
  $scope.scanneddata = Servicecall.productdetailsall();
  $scope.notindatabase = Servicecall.notindatabasedetailsall();
- // alert($scope.scanneddata);
  $scope.upccodes = Servicecall.scannedstringall();
- $scope.showname = "Arul";
 
  ///////////////////////////////////////Logout/////////////////////////////////////
  $scope.logout = function () {
@@ -21,18 +19,10 @@ angular.module('starter.controller_list', [])
  }
 
  //////////////////////////////////List displaying////////////////////////////////
-
- $scope.clearlist = function () {
-  window.localStorage.scanneddata = '';
-  window.localStorage.productdetails = '';
-  $scope.scanneddata = '';
- }
-
  $scope.back = function () {
   //  $state.go('scan');
   $state.go('scan', {});
  }
-
  ///////////////////////////////actionsheet///////////////////////////////////////
  $scope.delete = function (project, upc) {
   $scope.upccodes.splice($scope.upccodes.indexOf(upc), 1);
@@ -54,7 +44,7 @@ angular.module('starter.controller_list', [])
   angular.forEach($scope.scanneddata, function (index) {
    $http({
     method: 'POST',
-    url: 'https://localhost:8009/pantryRegister',
+    url: 'https://ec2-52-33-48-38.us-west-2.compute.amazonaws.com:8009/pantryRegister',
     headers: {
      'Content-Type': 'application/x-www-form-urlencoded'
     },
@@ -64,7 +54,7 @@ angular.module('starter.controller_list', [])
       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
      return str.join("&");
     },
-    data: {
+    data: { //$scope.useremail
      email: $scope.useremail,
      upc: index.upc,
      product_name: index.product_name,
@@ -94,7 +84,7 @@ angular.module('starter.controller_list', [])
   window.localStorage.lastview = $state.current.name;
   $http({
    method: 'POST',
-   url: 'https://localhost:8009/viewPantry',
+   url: 'https://ec2-52-33-48-38.us-west-2.compute.amazonaws.com:8009/viewPantry',
    headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
    },
@@ -105,7 +95,7 @@ angular.module('starter.controller_list', [])
     return str.join("&");
    },
    data: {
-    email: $scope.userdetails.user.email
+    email: $scope.useremail
    }
   }).success(function (res) {
    console.log(res);

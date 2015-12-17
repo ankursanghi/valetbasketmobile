@@ -72,18 +72,17 @@ angular.module('starter.controller_scan', [])
 //                session_id: "f434d80e-801f-4cec-98b4-57af8b3fd00b",
 //                productsArray: [
 //                    {
-//                        upc: "014800318227",
+//                        upc: "014800318222",
 //                        isInMyList: "false",
-//                        product_name: "MOTT'S JUICE BEVERAGE",
+//                        product_name: "one",
 //                        product_description: "JUICE BEVERAGE",
-//                        brand: "MOTT'S",
+//                        brand: "two",
 //                        manufacturer: "MOTT'S",
 //                        product_size: "64 fl oz"
 //                                    }
 //                                    ]
 //            });
 //            $scope.testchech1.push($scope.product[0].productsArray[0]);
-//            //$scope.testchech1.push($scope.product[1].productsArray[0]);
 //            $scope.product = [];
 //            Servicecall.productsave($scope.testchech1);
             //                                    $scope.notindatabase.push('036632027603');
@@ -93,7 +92,6 @@ angular.module('starter.controller_scan', [])
         }
         ////////////////////////////////////////storing datain array////////////////////
     angular.forEach($scope.allScannedlist, function (d) {
-        console.log(d.data);
         $scope.duplicatecheck.push(d.data);
     });
     /*////////////////////////////////my pantry///////////////////////////////*/
@@ -118,7 +116,6 @@ angular.module('starter.controller_scan', [])
                     email: $scope.userdetails.user.email
                 }
             }).success(function (res) {
-                console.log(res);
                 $scope.pantrystatus = res.status;
                 $scope.pantrydata = res;
 
@@ -135,7 +132,6 @@ angular.module('starter.controller_scan', [])
                     }
                 } else {
                     Servicecall.hide();
-                    console.log("error");
                 }
             });
         }

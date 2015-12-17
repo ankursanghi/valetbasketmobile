@@ -137,7 +137,6 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
                         agree: signup.agree
                     }
                 }).success(function (res) {
-                    console.log(res);
                     $scope.signupretuneddata = res;
                 }).then(function () {
 
@@ -159,7 +158,6 @@ angular.module('starter.controllers', ['starter.controller_scan', 'starter.contr
                 $scope.existuser = false;
                 $scope.newuser = false;
             }
-
 
         } else {
             $cordovaToast.show('Please enter your details', 'long', 'bottom');

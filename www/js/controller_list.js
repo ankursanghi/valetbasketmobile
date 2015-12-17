@@ -1,6 +1,6 @@
 angular.module('starter.controller_list', [])
 
-.controller('listController', function ($scope, $state, $ionicPopup, Servicecall, $http) {
+.controller('listController', function ($scope, $state, $ionicPopup, Servicecall, $http, $cordovaToast) {
 
   $scope.userdetails = angular.fromJson(window.localStorage.historyLogin);
   $scope.useremail = $scope.userdetails.user.email;
@@ -64,7 +64,7 @@ angular.module('starter.controller_list', [])
      product_size: index.product_size
     }
    }).success(function (res) {
-    console.log(res);
+    $cordovaToast.show('Saved to MyPantry', 'long', 'bottom');
    })
   });
   $scope.upccodes = [];
@@ -98,7 +98,6 @@ angular.module('starter.controller_list', [])
     email: $scope.useremail
    }
   }).success(function (res) {
-   console.log(res);
    $scope.pantrystatus = res.status;
    $scope.pantrydata = res;
 
@@ -115,7 +114,7 @@ angular.module('starter.controller_list', [])
     }
    } else {
     Servicecall.hide();
-    console.log("error");
+    $cordovaToast.show('Error, please try again', 'long', 'bottom');
    }
   });
  }

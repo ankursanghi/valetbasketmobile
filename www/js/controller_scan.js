@@ -43,7 +43,7 @@ angular.module('starter.controller_scan', [])
                                     $cordovaToast.show('Already in list', 'short', 'bottom');
                                 }
                             } else {
-                                $cordovaToast.show('Not in database', 'short', 'bottom');
+                                $cordovaToast.show('Product description not found', 'short', 'bottom');
                                 if ($scope.notindatabase.indexOf(imageData.text) == -1) {
                                     $scope.notindatabase.push(imageData.text);
                                     Servicecall.notindatabasesave($scope.notindatabase);
